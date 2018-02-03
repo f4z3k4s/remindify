@@ -14,37 +14,37 @@ export const types = {
  */
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.CREATE_NOTE: {
-      return [
-        ...state,
-        {
-          text: action.payload,
-          id: state.length,
-          isFavorite: false,
-        },
-      ]
+  case types.CREATE_NOTE: {
+    return [
+      ...state,
+      {
+        text: action.payload,
+        id: state.length,
+        isFavorite: false,
+      },
+    ]
+  }
+
+  case types.DELETE_NOTE: {
+    const { id } = action.payload
+    return [...state]
+      .filter(note => note.id !== id)
+  }
+
+  case types.FAVORITE_NOTE: {
+    const { id } = action.payload
+    const idx = state.findIndex(note => note.id === id)
+    const newState = [...state]
+    newState[idx] = {
+      ...newState[idx],
+      isFavorite: !newState[idx].isFavorite,
     }
 
-    case types.DELETE_NOTE: {
-      const { id } = action.payload
-      return [...state]
-        .filter(note => note.id !== id)
-    }
-
-    case types.FAVORITE_NOTE: {
-      const { id } = action.payload
-      const idx = state.findIndex(note => note.id === id)
-      const newState = [...state]
-      newState[idx] = {
-        ...newState[idx],
-        isFavorite: !newState[idx].isFavorite,
-      }
-
-      return newState
-    }
-    
-    default:
-      return state
+    return newState
+  }
+  
+  default:
+    return state
   }
 }
 export default reducer

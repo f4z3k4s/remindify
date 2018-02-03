@@ -8,7 +8,6 @@ export default glamorous(GestureRecognizer)({
   position: 'relative',
   marginVertical: 5,
 }, props => ({
-  height: props.height,
   minHeight: props.minHeight,
-  marginBottom: props.isLastNote ? 20 : 5,
+  marginBottom: 10,
 }))

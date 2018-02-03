@@ -1,47 +1,18 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, Easing } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import { Animated, Easing } from 'react-native'
 import glamorous from 'glamorous-native'
 import PropTypes from 'prop-types'
 
 import GestureRecognizer from './gesture-recognizer'
-import ButtonWrapper from './button-wrapper'
+import AnimatedContent from './animated-content'
 import DeleteNoteButton from './delete-note-button'
 import FavoriteNoteButton from './favorite-note-button'
 
-import { colors } from '../../../../styles'
-
-const AnimatedContent = Animatable.createAnimatableComponent(
-  glamorous.touchableHighlight({
-    flex: 1,
-    flexDirection: 'row',
-    borderRadius: 2,
-    justifyContent: 'space-between',
-    backgroundColor: colors.white,
-    shadowColor: colors.medium,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    marginHorizontal: 5,
-    elevation: 7,
-    position: 'absolute',
-    padding: 5,
-    width: Dimensions.get('window').width - 10, // should subtract padding
-    zIndex: 1,
-  }, props => ({
-    minHeight: props.innerMinHeight,
-    height: props.innerHeight,
-  }))
-)
 const { Text, View } = glamorous
 
 export default class Note extends Component {
   static propTypes = {
     note: PropTypes.any.isRequired,
-    isLastNote: PropTypes.bool.isRequired,
   }
 
   constructor () {
@@ -50,8 +21,12 @@ export default class Note extends Component {
       position: 'center',
       duration: 300,
       easing: 'ease-in-out-circ',
-      height: 0,
-      minHeight: 30,
+      height: 0, // actual height of the note, measured
+      minHeight: 30, // min-height to be in sync with icon height
+      recognizerConfig: {
+        velocityThreshold: 0.3,
+        directionalOffsetThreshold: 80,
+      }
     }
   }
 
@@ -59,12 +34,10 @@ export default class Note extends Component {
     const { position, duration, easing } = this.state
     if (position === 'center') {
       this.refs.animatedContent.slideLeft(duration, easing)
-        .then(() => this.refs.animatedContent.slideLeftAfter(duration, easing))
       this.setState({ position: 'left' })
     }
     if (position === 'right') {
       this.refs.animatedContent.slideBackFromRight(duration, easing)
-        .then(() => this.refs.animatedContent.slideBackFromRightAfter(duration, easing))
       this.setState({ position: 'center' })
     }
   }
@@ -73,55 +46,42 @@ export default class Note extends Component {
     const { position, duration, easing } = this.state
     if (position === 'center') {
       this.refs.animatedContent.slideRight(duration, easing)
-        .then(() => this.refs.animatedContent.slideRightAfter(duration, easing))
       this.setState({ position: 'right' })
     }
     if (position === 'left') {
       this.refs.animatedContent.slideBackFromLeft(duration, easing)
-        .then(() => this.refs.animatedContent.slideBackFromLeftAfter(duration, easing))
       this.setState({ position: 'center' })
     }
   }
 
   render() {
-    const { note, isLastNote } = this.props
-    const { height, minHeight } = this.state
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
-    }
+    const { note } = this.props
+    const { height, minHeight, recognizerConfig } = this.state
 
     return (
       <GestureRecognizer
         onSwipeLeft={(state) => this.onSwipeLeft(state)}
         onSwipeRight={(state) => this.onSwipeRight(state)}
-        config={config}
-        height={height}
+        config={recognizerConfig}
         minHeight={minHeight}
-        isLastNote={isLastNote}
       >
-        <ButtonWrapper>
-          <FavoriteNoteButton note={note} />      
-        </ButtonWrapper>
+        <FavoriteNoteButton note={note} height={height} />      
         <AnimatedContent
           ref="animatedContent"
-          innerHeight={height}
           innerMinHeight={minHeight}
         >
           <View>
             <Text
               onLayout={(event) => {
                 const { height } = event.nativeEvent.layout
-                this.setState({ height: height + 10 })
+                this.setState({ height })
               }} 
             >
               {note.text}
             </Text>
           </View>
         </AnimatedContent>
-        <ButtonWrapper>
-          <DeleteNoteButton id={note.id} />
-        </ButtonWrapper>
+        <DeleteNoteButton id={note.id} height={height} isRight />
       </GestureRecognizer>      
     )
   }

@@ -18,12 +18,13 @@ export default connect(HomeScreenSelector)(class HomeScreen extends Component {
   render() {
     const { notes } = this.props
     return (
-      <ScrollView>
+      <ScrollView
+        paddingTop={10}
+      >
         {notes.map(note =>
           <Note
             key={note.id}
             note={note}
-            isLastNote={note.id === notes.length - 1}
           />)}
       </ScrollView>
     )

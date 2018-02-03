@@ -1,47 +1,56 @@
 import * as Animatable from 'react-native-animatable'
-import { pulse } from 'react-native-animatable/definitions/attention-seekers'
 
 import store from '../store'
 
-const offsetX = store.getState().ui.sideWidth
+const { sideWidth } = store.getState().ui
 
-const getInitialPos = isNegative => ({
-  from: {
-    translateX: 0,
-  },
-  to: {
-    translateX: isNegative ? -offsetX : offsetX,
-  },
-})
+const extendEffect = (originalEffect, propName, propArray) => {
+  const keys = Object.keys(originalEffect)
 
-const createAfterEffect = (originalEffect, translateX) =>
-  Object.keys(originalEffect).reduce((obj, key) => {
-    obj[key] = { ...originalEffect[key], translateX }
+  // workaround for: https://stackoverflow.com/questions/33351816/how-to-prevent-automatic-sort-of-object-numeric-property 
+  // put '1' back to last index
+  keys.push(keys.splice(keys.indexOf('1'), 1))
+
+  return keys.reduce((obj, key, idx) => {
+    obj[key] = { ...originalEffect[key], [propName]: propArray[idx] }
     return obj
   }, {})
+}
+  
 
-const left = getInitialPos(true)
-const right = getInitialPos(false)
+// breakpoints of the animations
+const breakpoints = [0, 0.2, 0.4, 0.43, 0.53, 0.7, 0.8, 0.9, 1]
+// stretch
+const calcScaleY = (scaleX) => 1 / scaleX
+const scaleXs = [1, 1.15, 1.2, 1.3, 1.4, 1.6, 1.4, 1.2, 1]
+const scaleYs = scaleXs.map(scaleX => calcScaleY(scaleX))
+// slideRight
+const translateXs = [0, 5, 8, 15, 35, 40, 42, 44, sideWidth]
+// slideLeft
+const negTranslateXs = translateXs.map(translateX => -translateX)
+// slideBackFromRight
+const revTranslateXs = [...translateXs].reverse()
+// slideBackFromLeft
+const revNegTranslateXs = [...negTranslateXs].reverse()
+
+const stretch = breakpoints.reduce((obj, bp, idx) => {
+  obj[bp] = {
+    scaleX: scaleXs[idx],
+    scaleY: scaleYs[idx],
+  }
+  return obj
+}, {})
+
+const slideRight = extendEffect(stretch, 'translateX', translateXs)
+const slideLeft = extendEffect(stretch, 'translateX', negTranslateXs)
+const slideBackFromRight = extendEffect(stretch, 'translateX', revTranslateXs)
+const slideBackFromLeft = extendEffect(stretch, 'translateX', revNegTranslateXs)
+
+console.log(slideRight, slideBackFromRight, slideLeft, slideBackFromLeft)
 
 Animatable.initializeRegistryWithDefinitions({
-  slideLeft: {
-    from: left.from,
-    to: left.to,
-  },
-  slideBackFromLeft: {
-    from: left.to,
-    to: left.from,
-  },
-  slideRight: {
-    from: right.from,
-    to: right.to,
-  },
-  slideBackFromRight: {
-    from: right.to,
-    to: right.from,
-  },
-  slideLeftAfter: createAfterEffect(pulse, left.to.translateX),
-  slideBackFromLeftAfter: createAfterEffect(pulse, left.from.translateX),
-  slideRightAfter: createAfterEffect(pulse, right.to.translateX),
-  slideBackFromRightAfter: createAfterEffect(pulse, right.from.translateX),
+  slideRight,
+  slideLeft,
+  slideBackFromRight,
+  slideBackFromLeft,
 })

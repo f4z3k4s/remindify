@@ -20,22 +20,22 @@ export const initialState = {
  */
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SET_NOTE: {
-      return {
-        ...state,
-        currentNote: action.payload,
-      }
+  case types.SET_NOTE: {
+    return {
+      ...state,
+      currentNote: action.payload,
     }
+  }
 
-    case types.TOGGLE_FAVORITE: {
-      return {
-        ...state,
-        favoriteToggled: !state.favoriteToggled,
-      }
+  case types.TOGGLE_FAVORITE: {
+    return {
+      ...state,
+      favoriteToggled: !state.favoriteToggled,
     }
-    
-    default:
-      return state
+  }
+  
+  default:
+    return state
   }
 }
 export default reducer

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Icon from '@expo/vector-icons/Entypo'
 
+import ButtonWrapper from '../button-wrapper'
+
 import { actionCreators } from '../../../../../ducks/notes'
 
 import { colors } from '../../../../../styles'
@@ -14,18 +16,22 @@ export default connect(null, {
   static propTypes = {
     id: PropTypes.number.isRequired,
     deleteNote: PropTypes.func.isRequired,
+    height: PropTypes.number.isRequired,
+    isRight: PropTypes.bool,
   }
 
   render() {
     const { deleteNote, id } = this.props
 
     return (
-      <Icon
-        name="trash"
-        onPress={() => deleteNote(id)} 
-        size={30}
-        color={colors.darkest}
-      />
+      <ButtonWrapper {...this.props}>
+        <Icon
+          name="trash"
+          onPress={() => deleteNote(id)} 
+          size={30}
+          color={colors.darkest}
+        />
+      </ButtonWrapper>
     )
   }
 })
