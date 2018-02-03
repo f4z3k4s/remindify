@@ -6,8 +6,7 @@ export default glamorous(GestureRecognizer)({
   flexDirection: 'row',
   justifyContent: 'space-between',
   position: 'relative',
-  marginVertical: 5,
+  marginBottom: 10,
 }, props => ({
   minHeight: props.minHeight,
-  marginBottom: 10,
 }))

@@ -8,8 +8,9 @@ export default glamorous.touchableHighlight({
   justifyContent: 'center',
   alignItems: 'center',
   position: 'absolute',
+  zIndex: -1,
 }, props => ({
-  height: props.height,
-  top: 5,
+  height: props.innerHeight || props.innerMinHeight,
+  top: 10,
   [props.isRight ? 'right' : 'left']: 0,
 }))

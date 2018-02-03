@@ -16,8 +16,8 @@ export default connect(null, {
   static propTypes = {
     id: PropTypes.number.isRequired,
     deleteNote: PropTypes.func.isRequired,
-    height: PropTypes.number.isRequired,
-    isRight: PropTypes.bool,
+    innerHeight: PropTypes.number.isRequired,
+    innerMinHeight: PropTypes.number.isRequired,
   }
 
   render() {
@@ -28,7 +28,7 @@ export default connect(null, {
         <Icon
           name="trash"
           onPress={() => deleteNote(id)} 
-          size={30}
+          size={25}
           color={colors.darkest}
         />
       </ButtonWrapper>

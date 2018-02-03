@@ -4,6 +4,7 @@
 export const types = {
   SET_NOTE: 'ui/SET_NOTE',
   TOGGLE_FAVORITE: 'ui/TOGGLE_FAVORITE',
+  TOGGLE_IS_ANIMATING: 'ui/TOGGLE_IS_ANIMATING',
 }
 
 /**
@@ -13,6 +14,7 @@ export const initialState = {
   currentNote: '',
   favoriteToggled: false,
   sideWidth: 45,
+  isAnimating: false,
 }
 
 /**
@@ -31,6 +33,13 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       favoriteToggled: !state.favoriteToggled,
+    }
+  }
+
+  case types.TOGGLE_IS_ANIMATING: {
+    return {
+      ...state,
+      isAnimating: !state.isAnimating,
     }
   }
   
@@ -53,7 +62,12 @@ const toggleFavorite = () => ({
   type: types.TOGGLE_FAVORITE,
 })
 
+const toggleIsAnimating = () => ({
+  type: types.TOGGLE_IS_ANIMATING,
+})
+
 export const actionCreators = {
   setNote,
   toggleFavorite,
+  toggleIsAnimating,
 }

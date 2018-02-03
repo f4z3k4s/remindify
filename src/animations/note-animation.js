@@ -44,10 +44,19 @@ const slideRight = extendEffect(stretch, 'translateX', translateXs)
 const slideLeft = extendEffect(stretch, 'translateX', negTranslateXs)
 const slideBackFromRight = extendEffect(stretch, 'translateX', revTranslateXs)
 const slideBackFromLeft = extendEffect(stretch, 'translateX', revNegTranslateXs)
+const deleteNote = {
+  from: {
+    scale: 1,
+  },
+  to: {
+    scale: 0,
+  },
+}
 
 Animatable.initializeRegistryWithDefinitions({
   slideRight,
   slideLeft,
   slideBackFromRight,
   slideBackFromLeft,
+  deleteNote,
 })

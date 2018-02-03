@@ -22,7 +22,6 @@ export default Animatable.createAnimatableComponent(
     elevation: 4,
     padding: 5,
     width: Dimensions.get('window').width - 10, // should subtract padding
-    zIndex: 1,
   }, props => ({
     minHeight: props.innerMinHeight,
   }))

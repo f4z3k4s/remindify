@@ -33,7 +33,7 @@ class NoteInput extends Component {
         selectionColor={colors.medium}
         color={colors.medium}
         underlineColorAndroid='rgba(0,0,0,0)'
-        placeholder='Tell me your deepest secret...'
+        placeholder='Continue the lyrics, or bore me and add a note...'
         placeholderTextColor={colors.medium}
         textAlignVertical='top'
       />
