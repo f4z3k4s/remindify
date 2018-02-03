@@ -7,6 +7,9 @@ I decided to use Expo in this project for the sake of simplicity. In order to ru
 git clone https://github.com/f4z3k4s/remindify
 `
 3. `
+cd remindify && yarn
+` ||
+`
 cd remindify && npm install
 `
 4. add remindify root dir to Expo XDE
