@@ -14,37 +14,37 @@ export default connect(CreateNoteButtonSelector, {
   createNote: notesActionCreators.createNote,
   setNote: uiActionCreators.setNote,
 })(
-class CreateNoteButton extends Component {
-  static propTypes = {
-    navigation: PropTypes.any.isRequired,
-    createNote: PropTypes.func.isRequired,
-    setNote: PropTypes.func.isRequired,
-    currentNote: PropTypes.any.isRequired,
-  }
+  class CreateNoteButton extends Component {
+    static propTypes = {
+      navigation: PropTypes.any.isRequired,
+      createNote: PropTypes.func.isRequired,
+      setNote: PropTypes.func.isRequired,
+      currentNote: PropTypes.any.isRequired,
+    }
 
-  /**
-   * Creates a note in state.notes
-   * Resets currentNote in state.ui
-   * Redirects back to home
-   */
-  createNote() {
-    const { createNote, currentNote, setNote, navigation } = this.props
-    createNote(currentNote)
-    setNote('')
-    navigation.navigate('Home')
-  }
+    /**
+     * Creates a note in state.notes
+     * Resets currentNote in state.ui
+     * Redirects back to home
+     */
+    createNote() {
+      const { createNote, currentNote, setNote, navigation } = this.props
+      createNote(currentNote)
+      setNote('')
+      navigation.navigate('Home')
+    }
 
-  render() {
-    const Check = glamorous(Icon)({
-      padding: 10,
-    })
-    return (
-      <Check
-        size={30}
-        color={colors.white}
-        onPress={() => this.createNote()}
-        name='check'
-      />
-    )
-  }
-})
+    render() {
+      const Check = glamorous(Icon)({
+        padding: 10,
+      })
+      return (
+        <Check
+          size={30}
+          color={colors.white}
+          onPress={() => this.createNote()}
+          name='check'
+        />
+      )
+    }
+  })

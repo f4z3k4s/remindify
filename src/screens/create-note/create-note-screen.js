@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Text, Dimensions } from 'react-native'
-import PropTypes from 'prop-types'
 import glamorous from 'glamorous-native'
 
 import { CreateNoteButton, NoteInput } from './components'
@@ -8,7 +6,7 @@ import { CreateNoteButton, NoteInput } from './components'
 const { ScrollView } = glamorous
 
 export default class CreateNoteScreen extends Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
+  static navigationOptions = ({ navigation }) => ({
     title: 'Create note',
     headerRight: <CreateNoteButton navigation={navigation} />,
   })

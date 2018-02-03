@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation'
 import { CreateNoteScreen, HomeScreen } from './screens'
 import { colors } from './styles'
 
@@ -24,6 +24,6 @@ const RootNavigator = StackNavigator({
       textAlign: 'center',
     },
   },
-});
+})
 
 export default RootNavigator

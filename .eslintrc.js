@@ -4,6 +4,7 @@ module.exports = {
         "es6": true
     },
     "extends": ["eslint:recommended"],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 7,
         "sourceType": "module",
@@ -13,7 +14,8 @@ module.exports = {
         }
     },
     "plugins": [
-        "react"
+        "react",
+        "babel"
     ],
     "rules": {
         "indent": [
@@ -31,6 +33,10 @@ module.exports = {
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "babel/semi": 0,
+        "react/jsx-uses-react": 1,
+        "react/jsx-uses-vars": 1,
+        "react/react-in-jsx-scope": 1
     }
 };

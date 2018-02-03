@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { applyMiddleware, createStore } from 'redux'
 import logger from 'redux-logger'
 

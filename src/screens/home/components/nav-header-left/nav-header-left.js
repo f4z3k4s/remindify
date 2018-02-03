@@ -24,7 +24,7 @@ export default connect(NavHeaderLeftSelector, {
 
     return (
       <Heart
-        name={favoriteToggled ? "heart" : "heart-outlined"}
+        name={favoriteToggled ? 'heart' : 'heart-outlined'}
         onPress={() => toggleFavorite()}
         size={30}
         color={colors.light}

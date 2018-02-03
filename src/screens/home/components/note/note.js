@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Animated, Easing } from 'react-native'
 import glamorous from 'glamorous-native'
 import PropTypes from 'prop-types'
 

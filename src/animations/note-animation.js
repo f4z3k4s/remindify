@@ -7,7 +7,7 @@ const { sideWidth } = store.getState().ui
 const extendEffect = (originalEffect, propName, propArray) => {
   const keys = Object.keys(originalEffect)
 
-  // workaround for: https://stackoverflow.com/questions/33351816/how-to-prevent-automatic-sort-of-object-numeric-property 
+  // workaround for: https://stackoverflow.com/questions/33351816/how-to-prevent-automatic-sort-of-object-numeric-property
   // put '1' back to last index
   keys.push(keys.splice(keys.indexOf('1'), 1))
 
@@ -16,12 +16,11 @@ const extendEffect = (originalEffect, propName, propArray) => {
     return obj
   }, {})
 }
-  
 
 // breakpoints of the animations
 const breakpoints = [0, 0.2, 0.4, 0.43, 0.53, 0.7, 0.8, 0.9, 1]
 // stretch
-const calcScaleY = (scaleX) => 1 / scaleX
+const calcScaleY = scaleX => 1 / scaleX
 const scaleXs = [1, 1.15, 1.2, 1.3, 1.4, 1.6, 1.4, 1.2, 1]
 const scaleYs = scaleXs.map(scaleX => calcScaleY(scaleX))
 // slideRight
@@ -45,8 +44,6 @@ const slideRight = extendEffect(stretch, 'translateX', translateXs)
 const slideLeft = extendEffect(stretch, 'translateX', negTranslateXs)
 const slideBackFromRight = extendEffect(stretch, 'translateX', revTranslateXs)
 const slideBackFromLeft = extendEffect(stretch, 'translateX', revNegTranslateXs)
-
-console.log(slideRight, slideBackFromRight, slideLeft, slideBackFromLeft)
 
 Animatable.initializeRegistryWithDefinitions({
   slideRight,
