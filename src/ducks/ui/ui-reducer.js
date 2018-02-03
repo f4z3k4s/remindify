@@ -1,3 +1,5 @@
+import { types as notesTypes } from '../notes'
+
 /**
  * Action types 
  */
@@ -15,6 +17,7 @@ export const initialState = {
   favoriteToggled: false,
   sideWidth: 45,
   isAnimating: false,
+  loading: false,
 }
 
 /**
@@ -22,6 +25,24 @@ export const initialState = {
  */
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+  case notesTypes.FETCH_NOTES:
+  case notesTypes.CREATE_NOTE: {
+    return {
+      ...state,
+      loading: true,
+    }
+  }
+
+  case notesTypes.FETCH_NOTES_SUCCESS:
+  case notesTypes.FETCH_NOTES_ERROR:
+  case notesTypes.CREATE_NOTE_SUCCESS:
+  case notesTypes.CREATE_NOTE_ERROR: {
+    return {
+      ...state,
+      loading: false,
+    }
+  }
+
   case types.SET_NOTE: {
     return {
       ...state,

@@ -2,12 +2,15 @@ import { createSelector } from 'reselect'
 
 const getNotes = state => state.notes
 const getFavoriteToggled = state => state.ui.favoriteToggled
+const getLoading = state => state.ui.loading
 
 const Selector = createSelector(
   getNotes,
   getFavoriteToggled,
-  (notes, favoriteToggled) => ({ 
+  getLoading,
+  (notes, favoriteToggled, loading) => ({ 
     notes: favoriteToggled ? notes.filter(note => note.isFavorite) : notes,
+    loading,
   })
 )
 

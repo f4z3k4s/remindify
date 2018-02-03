@@ -18,16 +18,20 @@ export default connect(null, {
     deleteNote: PropTypes.func.isRequired,
     innerHeight: PropTypes.number.isRequired,
     innerMinHeight: PropTypes.number.isRequired,
+    deleteNoteAnimation: PropTypes.func.isRequired,
+  }
+
+  deleteNote() {
+    const { deleteNote, deleteNoteAnimation, id } = this.props
+    deleteNoteAnimation().then(() => deleteNote(id))
   }
 
   render() {
-    const { deleteNote, id } = this.props
-
     return (
       <ButtonWrapper {...this.props}>
         <Icon
           name="trash"
-          onPress={() => deleteNote(id)} 
+          onPress={() => this.deleteNote()} 
           size={25}
           color={colors.darkest}
         />

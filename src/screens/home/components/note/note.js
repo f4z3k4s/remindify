@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { NoteSelector } from '../../../../selectors'
 import { actionCreators } from '../../../../ducks/notes'
 
-import GestureRecognizer from './gesture-recognizer'
+import AnimatedContainer from './animated-container'
 import AnimatedContent from './animated-content'
 import DeleteNoteButton from './delete-note-button'
 import FavoriteNoteButton from './favorite-note-button'
@@ -38,9 +38,8 @@ export default connect(NoteSelector, {
       }
     }
 
-    componentWillUnmount() {
-      const { duration, easing } = this.state      
-      this.refs.animatedContent && this.refs.animatedContent.deleteNote(duration, easing)
+    deleteNoteAnimation() {
+      return this.refs.animatedContainer.deleteNote(800, 'ease-out-expo')
     }
 
     onSwipeLeft() {
@@ -76,7 +75,8 @@ export default connect(NoteSelector, {
       const { height, minHeight, recognizerConfig } = this.state
 
       return (
-        <GestureRecognizer
+        <AnimatedContainer
+          ref="animatedContainer"
           onSwipeLeft={(state) => !isAnimating ? this.onSwipeLeft(state) : null}
           onSwipeRight={(state) => !isAnimating ? this.onSwipeRight(state) : null}
           config={recognizerConfig}
@@ -84,6 +84,7 @@ export default connect(NoteSelector, {
         >  
           <DeleteNoteButton
             id={note.id}
+            deleteNoteAnimation={() => this.deleteNoteAnimation()}
             innerHeight={height}
             innerMinHeight={minHeight}
           /> 
@@ -110,7 +111,7 @@ export default connect(NoteSelector, {
             isAnimating={isAnimating}
             isRight            
           /> 
-        </GestureRecognizer>   
+        </AnimatedContainer>   
       )
     }
   })

@@ -46,10 +46,10 @@ const slideBackFromRight = extendEffect(stretch, 'translateX', revTranslateXs)
 const slideBackFromLeft = extendEffect(stretch, 'translateX', revNegTranslateXs)
 const deleteNote = {
   from: {
-    scale: 1,
+    opacity: 1,
   },
   to: {
-    scale: 0,
+    opacity: 0,
   },
 }
 
