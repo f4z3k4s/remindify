@@ -59,4 +59,5 @@ Animatable.initializeRegistryWithDefinitions({
   slideBackFromRight,
   slideBackFromLeft,
   deleteNote,
+  delay: { from: {}, to: {} },
 })

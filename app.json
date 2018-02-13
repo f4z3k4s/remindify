@@ -1,5 +1,14 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "sdkVersion": "25.0.0",
+    "icon": "./src/assets/icons/app-icon.png",
+    "version": "1.0.0",
+    "slug": "remindify",
+    "ios": {
+      "bundleIdentifier": "com.casumo.remindify"
+    },
+    "android": {
+      "package": "com.casumo.remindify"
+    }
   }
 }

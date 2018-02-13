@@ -2,7 +2,7 @@
 import { applyMiddleware, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { notesSaga } from './sagas'
-import logger from 'redux-logger'
+// import logger from 'redux-logger'
 
 import rootReducer from './ducks'
 
@@ -13,7 +13,7 @@ const sagaMiddleware = createSagaMiddleware()
  */
 const store = createStore(
   rootReducer,
-  applyMiddleware(sagaMiddleware, logger),
+  applyMiddleware(sagaMiddleware),
 )
 
 sagaMiddleware.run(notesSaga)

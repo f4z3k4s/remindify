@@ -20,6 +20,7 @@ export default connect(null, {
 
   static propTypes = {
     note: PropTypes.any.isRequired,
+    visible: PropTypes.bool.isRequired,
     favoriteNote: PropTypes.func.isRequired,
     innerHeight: PropTypes.number.isRequired,
     innerMinHeight: PropTypes.number.isRequired,
@@ -34,23 +35,35 @@ export default connect(null, {
     
     favoriteNote(note.id)    
     if (!note.isFavorite) {
+      const animationDuration = 2000
+      const delayDuration = 100
+      const { delay, favorite } = this.refs.animatedButtonWrapper
+    
       toggleIsAnimating()
-      setTimeout(() => onSwipeRight(), 2000)    
-      this.refs.animatedButtonWrapper.favorite(2000, 'ease-in-out-expo')
+      setTimeout(() => onSwipeRight(), animationDuration)    
+      delay(delayDuration) // should add delay to allow new animation to take place instead of basic
+        .then(() => favorite(animationDuration - delayDuration, 'ease-in-out-expo'))
         .then(endState => endState.finished ? toggleIsAnimating() : null)
     }
   }
 
   render() {
-    const { note, isAnimating } = this.props
+    const { note, isAnimating, visible } = this.props
+    let animationProps = {}
+
+    if (!isAnimating && visible && !note.isFavorite) {
+      animationProps = {
+        animation: 'tada',
+        easing: 'ease-out',
+        iterationCount: 'infinite',
+      }
+    }
 
     return (
       <AnimatedButtonWrapper
         ref={'animatedButtonWrapper'}
         {...this.props}
-        animation="tada"
-        easing="ease-out"
-        iterationCount={note.isFavorite ? 1 : 'infinite'}
+        {...animationProps}
       >
         <Icon
           name={note.isFavorite ? 'heart' : 'heart-outlined'}

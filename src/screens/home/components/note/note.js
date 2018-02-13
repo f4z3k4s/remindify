@@ -30,7 +30,7 @@ export default connect(NoteSelector, {
         duration: 300,
         easing: 'ease-in-out-circ',
         height: 0, // actual height of the note, measured
-        minHeight: 30, // min-height to be in sync with icon height
+        minHeight: 50, // min-height to be in sync with icon height
         recognizerConfig: {
           velocityThreshold: 0.3,
           directionalOffsetThreshold: 80,
@@ -96,7 +96,7 @@ export default connect(NoteSelector, {
               <Text
                 onLayout={(event) => {
                   const { height } = event.nativeEvent.layout
-                  this.setState({ height })
+                  this.setState({ height: height > 50 ? height : 50 })
                 }} 
               >
                 {note.text}
@@ -105,6 +105,7 @@ export default connect(NoteSelector, {
           </AnimatedContent>
           <FavoriteNoteButton
             note={note}
+            visible={note.position === 'left'}
             innerHeight={height}
             innerMinHeight={minHeight}
             onSwipeRight={() => this.onSwipeRight()}

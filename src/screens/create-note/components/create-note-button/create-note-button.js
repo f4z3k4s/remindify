@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Keyboard } from 'react-native'
 import glamorous from 'glamorous-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -29,6 +30,7 @@ export default connect(CreateNoteButtonSelector, {
      */
     createNote() {
       const { createNote, currentNote, setNote, navigation } = this.props
+      Keyboard.dismiss()
       createNote(currentNote)
       setNote('')
       navigation.navigate('Home')

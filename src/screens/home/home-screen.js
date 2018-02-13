@@ -7,7 +7,7 @@ import { HomeScreenSelector } from '../../selectors'
 import { colors } from '../../styles'
 import { NavHeaderLeft, NavHeaderRight, Note, ActivityIndicator } from './components'
 
-const { ScrollView } = glamorous
+const { ScrollView, View } = glamorous
 
 
 export default connect(HomeScreenSelector)(class HomeScreen extends Component {
@@ -33,11 +33,15 @@ export default connect(HomeScreenSelector)(class HomeScreen extends Component {
       <ScrollView
         paddingTop={10}
       >
-        {notes.map(note =>
-          <Note
-            key={note.id}
-            note={note}
-          />)}
+        <View
+          marginBottom={10}
+        >
+          {notes.map(note =>
+            <Note
+              key={note.id}
+              note={note}
+            />)}
+        </View>
       </ScrollView>
     )
   }
